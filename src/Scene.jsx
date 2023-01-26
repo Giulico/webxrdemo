@@ -7,6 +7,7 @@ import {
   useMatcapTexture,
 } from "@react-three/drei";
 
+import { Controllers } from "@react-three/xr";
 import { usePlane } from "@react-three/cannon";
 
 function Scene() {
@@ -16,7 +17,8 @@ function Scene() {
   return (
     <>
       <Sky />
-      <Plane ref={planeRef} args={[10, 10]} receiveShadow />
+      <Plane ref={planeRef} args={[40, 40]} receiveShadow />
+      <Controllers />
     </>
   );
 }
