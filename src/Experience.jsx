@@ -11,7 +11,9 @@ import Grid from "./Grid";
 import { useControls } from "leva";
 
 function Experience() {
-  const { isPresenting } = useXR();
+  const xr = useXR();
+  // console.log(xr);
+  const { session } = xr;
 
   const { showDebug } = useControls({
     showDebug: false,
@@ -28,6 +30,8 @@ function Experience() {
       collapsed: true,
     }
   );
+
+  console.log(session);
 
   return (
     <>
@@ -46,7 +50,7 @@ function Experience() {
 
           <Floor args={[30, 0.2, 100]} />
         </Physics>
-        {!isPresenting && <PointerLockControls />}
+        {!session && <PointerLockControls />}
       </Suspense>
     </>
   );
