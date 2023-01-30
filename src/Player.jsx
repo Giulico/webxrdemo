@@ -21,7 +21,7 @@ function Player() {
     let { forward, backward, left, right, jump } = get();
 
     // Gamepad override
-    if (isPresenting) {
+    if (isPresenting && controller) {
       const gamepadAxes = controller.inputSource.gamepad.axes;
 
       forward = gamepadAxes[3] < 0;
@@ -47,7 +47,7 @@ function Player() {
     // Update camera position
     const playerPosition = playerRef.current.translation();
     state.camera.position.set(...playerPosition);
-    if (isPresenting) {
+    if (isPresenting && controller) {
       player.position.set(...playerPosition);
     }
   });

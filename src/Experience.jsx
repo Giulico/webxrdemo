@@ -6,18 +6,18 @@ import { Physics, Debug } from "@react-three/rapier";
 import Player from "./Player";
 import Floor from "./Floor";
 import Grid from "./Grid";
+import ErrorBoundary from "./ErrorBoundary";
 
 // Hooks
 import { useControls } from "leva";
 
 function Experience() {
-  const xr = useXR();
-  // console.log(xr);
-  const { session } = xr;
+  const { session } = useXR();
 
   const { showDebug } = useControls({
     showDebug: false,
   });
+
   const { sunPosition } = useControls(
     "Sky",
     {
@@ -30,8 +30,6 @@ function Experience() {
       collapsed: true,
     }
   );
-
-  console.log(session);
 
   return (
     <>
@@ -50,7 +48,11 @@ function Experience() {
 
           <Floor args={[30, 0.2, 100]} />
         </Physics>
-        {!session && <PointerLockControls />}
+        {!session && (
+          <ErrorBoundary>
+            <PointerLockControls />
+          </ErrorBoundary>
+        )}
       </Suspense>
     </>
   );
