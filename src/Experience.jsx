@@ -13,6 +13,9 @@ import { useControls } from "leva";
 function Experience() {
   const { isPresenting } = useXR();
 
+  const { showDebug } = useControls({
+    showDebug: false,
+  });
   const { sunPosition } = useControls(
     "Sky",
     {
@@ -36,7 +39,7 @@ function Experience() {
 
       <Suspense>
         <Physics>
-          <Debug />
+          {showDebug && <Debug />}
           <Grid />
 
           <Player />

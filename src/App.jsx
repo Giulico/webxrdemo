@@ -39,7 +39,7 @@ function App() {
       <VRButton />
       <Canvas>
         <Perf position="top-left" />
-        <Leva hidden={true} />
+        {/* <Leva hidden={true} /> */}
         {orbitControls && <OrbitControls makeDefault />}
 
         <KeyboardControls map={map}>
