@@ -14,9 +14,7 @@ import { useControls } from "leva";
 function Experience() {
   const { session } = useXR();
 
-  const { showDebug } = useControls({
-    showDebug: false,
-  });
+  const { showDebug } = useControls({ showDebug: true });
 
   const { sunPosition } = useControls(
     "Sky",
