@@ -1,10 +1,15 @@
-import { RigidBody, CapsuleCollider } from "@react-three/rapier";
-import { useKeyboardControls, Cylinder } from "@react-three/drei";
-import { useXR, useController } from "@react-three/xr";
-import { useFrame, useThree } from "@react-three/fiber";
-import { useRef, useState } from "react";
 import * as THREE from "three";
+
+// Hooks
+import { useFrame, useThree } from "@react-three/fiber";
+import { useSelector, useDispatch } from "react-redux";
+import { useKeyboardControls } from "@react-three/drei";
+import { useXR, useController } from "@react-three/xr";
+import { useRef, useEffect } from "react";
 import { useRapier } from "@react-three/rapier";
+
+// Components
+import { RigidBody, CapsuleCollider } from "@react-three/rapier";
 
 const speed = 10;
 const gamepadThreshold = 0.05;
@@ -15,7 +20,8 @@ const sideVector = new THREE.Vector3();
 const direction = new THREE.Vector3();
 
 function Player() {
-  const { camera } = useThree();
+  const playerState = useSelector((state) => state.player);
+
   const { isPresenting, player } = useXR();
   const { rapier, world } = useRapier();
   const rapierWorld = world.raw();
@@ -39,7 +45,7 @@ function Player() {
 
     // Update XR Camera / Player
     player.position.set(position.x, position.y, position.z);
-    playerCamera.position.set(0, 1, 0);
+    playerCamera.position.set(0, 3, 0);
 
     // Gamepad right override
     if (isPresenting && rightGamepad) {
@@ -91,16 +97,24 @@ function Player() {
     }
   });
 
+  // Teleport
+  useEffect(() => {
+    if (playerState.newPosition.length === 0) return;
+
+    const newPosition = JSON.parse(playerState.newPosition);
+    playerRef.current.setTranslation(newPosition);
+  }, [playerState.newPosition]);
+
   return (
     <>
       <RigidBody
         type="dynamic"
         ref={playerRef}
-        position={[0, 0.3, 40]}
+        position={[0, 0.5, 40]}
         enabledRotations={[false, false, false]}
         colliders={false}
       >
-        <CapsuleCollider args={[playerSize, playerSize]} mass={15} />
+        <CapsuleCollider args={[playerSize, playerSize]} mass={10} />
       </RigidBody>
     </>
   );

@@ -5,6 +5,7 @@ import { KeyboardControls, OrbitControls } from "@react-three/drei";
 import Experience from "./Experience";
 import { Perf } from "r3f-perf";
 import { Leva } from "leva";
+import Providers from "./providers";
 
 // Hooks
 import { useMemo } from "react";
@@ -16,6 +17,7 @@ const Controls = {
   left: "left",
   right: "right",
   jump: "jump",
+  teleport: "teleport",
 };
 
 function App() {
@@ -26,18 +28,20 @@ function App() {
       { name: Controls.left, keys: ["ArrowLeft", "KeyA"] },
       { name: Controls.right, keys: ["ArrowRight", "KeyD"] },
       { name: Controls.jump, keys: ["Space"] },
+      { name: Controls.teleport, keys: ["KeyE"] },
     ],
     []
   );
 
-  const { orbitControls } = useControls({
-    orbitControls: false,
-  });
+  // const { orbitControls } = useControls({
+  //   orbitControls: false,
+  // });
+  const orbitControls = false;
 
   return (
-    <>
+    <Providers>
       <VRButton />
-      <Canvas>
+      <Canvas shadows>
         <Perf position="top-left" />
         {/* <Leva hidden={true} /> */}
         {orbitControls && <OrbitControls makeDefault />}
@@ -48,7 +52,7 @@ function App() {
           </XR>
         </KeyboardControls>
       </Canvas>
-    </>
+    </Providers>
   );
 }
 

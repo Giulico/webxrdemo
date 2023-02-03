@@ -1,10 +1,12 @@
 import { Box } from "@react-three/drei";
 import { RigidBody } from "@react-three/rapier";
 
-function Floor({ args }) {
+function Floor({ args, position, color = "white" }) {
   return (
-    <RigidBody type="fixed" position={[0, args[1] / -2 - 0.1, 0]}>
-      <Box args={args} material-color="white" />
+    <RigidBody type="fixed" position={position}>
+      <Box castShadow receiveShadow args={args}>
+        <meshStandardMaterial color={color} />
+      </Box>
     </RigidBody>
   );
 }
