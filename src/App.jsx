@@ -4,12 +4,10 @@ import { XR, VRButton } from "@react-three/xr";
 import { KeyboardControls, OrbitControls } from "@react-three/drei";
 import Experience from "./Experience";
 import { Perf } from "r3f-perf";
-import { Leva } from "leva";
-import Providers from "./providers";
+import Providers from "./Providers";
 
 // Hooks
 import { useMemo } from "react";
-import { useControls } from "leva";
 
 const Controls = {
   forward: "forward",
